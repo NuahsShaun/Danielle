@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Myranda 💖</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap ');
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
     html, body {
       margin: 0;
@@ -71,33 +71,44 @@
       background-color: #ff1e56;
     }
 
-    .hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: -1;
-    }
-
     .heart {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: url('https://i.imgur.com/o5Y4jYR.png') no-repeat center;
-      background-size: contain;
-      animation: float 6s linear infinite;
+      position: fixed;
+      bottom: -20px;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d6d;
+      transform: rotate(45deg);
+      animation: floatUp linear infinite;
+      opacity: 0.8;
     }
 
-    @keyframes float {
-      from {
-        transform: translateY(100vh) rotate(0deg);
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d6d;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg);
         opacity: 1;
       }
-      to {
-        transform: translateY(-10vh) rotate(360deg);
+      100% {
+        transform: translateY(-120vh) rotate(45deg);
         opacity: 0;
       }
     }
@@ -144,27 +155,30 @@
   <button class="btn" onclick="alert('Yay! Let’s plan something cute 💃')">Yes!</button>
   <button class="btn" onclick="alert('Absolutely! This is too sweet 🥰')">Definitely!</button>
 
-  <div class="hearts" id="hearts"></div>
-
-  <section class="cta">
+  <div class="cta">
     <h2 style="color:white;">Pick the city 💌</h2>
     <p style="color:white;">Just hit send below and tell me where we’re heading!</p>
     <button onclick="window.location.href='mailto:shaunlewisf23@gmail.com?subject=Pick%20the%20Place!&body=I%27m%20down%20for%20a%20date%20💖%20Let%27s%20do%20Chico%20or%20Sacramento.%20You%20tell%20me!'">
       I’m in 💌
     </button>
-  </section>
+  </div>
 
   <script>
-    const heartContainer = document.getElementById("hearts");
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-      heartContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
+
+      const size = Math.random() * 20 + 10;
+      heart.style.width = `${size}px`;
+      heart.style.height = `${size}px`;
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.animationDuration = `${Math.random() * 3 + 3}s`;
+
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
     }
-    setInterval(createHeart, 300);
+
+    setInterval(createHeart, 250);
   </script>
 </body>
 </html>
